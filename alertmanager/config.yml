@@ -14,4 +14,4 @@ receivers:
   - url: '127.0.0.1/webhook'
     send_resolved: true
     http_config:
-      bearer_token: 's4XZKAW2k0sDzgcctusZ7PvIbkEIofTSDDcTTx6JTIS'
+      bearer_token: '{Token}'
