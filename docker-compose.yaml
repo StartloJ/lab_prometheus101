@@ -15,7 +15,6 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - "19090:9090"
-    # network_mode: host
     restart: always
 
   # node-exporter:
@@ -30,7 +29,6 @@ services:
   #       - '--path.procfs=/host/proc'
   #       - '--path.sysfs=/host/sys'
   #       - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
-  #     network_mode: host
   #     restart: always
   
   alertmanager:
@@ -42,7 +40,6 @@ services:
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
-    # network_mode: host
     restart: always
   
   grafana:
@@ -62,6 +59,11 @@ services:
     image: google/cadvisor
     ports: 
       - "18080:8080"
-    # network_mode: host
     volumes:
       - "/c/:/rootfs:ro"
+      # - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      # - '/:/rootfs:ro'
+      # - '/var/run:/var/run:rw'
+      # - '/sys:/sys:ro'
+      # - '/var/lib/docker/:/var/lib/docker:ro'
+      # - '/dev/disk/:/dev/disk:ro'
