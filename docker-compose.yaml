@@ -17,19 +17,19 @@ services:
       - "19090:9090"
     restart: always
 
-  # node-exporter:
-  #     image: prom/node-exporter
-  #     ports:
-  #       - '9100:9100'
-  #     volumes:
-  #       - '/proc:/host/proc'
-  #       - '/sys:/host/sys'
-  #       - '/:/rootfs'
-  #     command:
-  #       - '--path.procfs=/host/proc'
-  #       - '--path.sysfs=/host/sys'
-  #       - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
-  #     restart: always
+  node-exporter:
+      image: prom/node-exporter
+      ports:
+        - '9100:9100'
+      volumes:
+        - '/proc:/host/proc'
+        - '/sys:/host/sys'
+        - '/:/rootfs'
+      command:
+        - '--path.procfs=/host/proc'
+        - '--path.sysfs=/host/sys'
+        - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+      restart: always
   
   alertmanager:
     image: prom/alertmanager
@@ -60,10 +60,10 @@ services:
     ports: 
       - "18080:8080"
     volumes:
-      - "/c/:/rootfs:ro"
-      # - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      # - '/:/rootfs:ro'
-      # - '/var/run:/var/run:rw'
-      # - '/sys:/sys:ro'
-      # - '/var/lib/docker/:/var/lib/docker:ro'
-      # - '/dev/disk/:/dev/disk:ro'
+#       - "/c/:/rootfs:ro"
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+      - '/dev/disk/:/dev/disk:ro'
