@@ -1,0 +1,13 @@
+modules:
+  http_2xx_get:
+    prober: http
+    timeout: 5s
+    http:
+      method: GET
+      follow_redirects: true
+      body: '{}'
+  ping:
+    prober: icmp
+    timeout: 2s
+    icmp:
+      preferred_ip_protocol: "ip4"
