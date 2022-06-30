@@ -1,10 +1,10 @@
 apiVersion: 1
 datasources:
-  - access: 'browser'
+  - access: direct
     editable: true
     is_default: true
-    name: 'Pompompuri'
+    name: Prometheus
     org_id: 1
-    type: 'prometheus' 
-    url: 'http://localhost:19090'
+    type: prometheus
+    url: http://prometheus:9090
     version: 1
