@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   prometheus:
     image: quay.io/prometheus/prometheus:v2.29.2
@@ -7,6 +6,7 @@ services:
       - alertmanager
       - cadvisor
     volumes:
+      - prometheus_data:/var/lib/prometheus
       - "./prometheus/:/etc/prometheus/"
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -49,6 +49,7 @@ services:
   grafana:
     image: grafana/grafana:8.1.2
     volumes:
+      - grafana_data:/var/lib/grafana
       - "./grafana/provisioning/:/etc/grafana/provisioning/"
       - "./grafana/plugin/:/var/lib/grafana/plugins/"
       - "./grafana/custom.ini:/etc/grafana/custom.ini"
@@ -74,6 +75,26 @@ services:
       - '/dev/disk/:/dev/disk:ro'
     networks:
       - popduck
-
+  blackbox:
+    image: prom/blackbox-exporter:v0.21.1
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/blackbox/blackbox.yml"
+    volumes:
+      - ./prometheus/blackbox.yml:/etc/blackbox/blackbox.yml
+    networks:
+      - popduck
+  ## Demo app to monitor in following.
+  simple_http1:
+    image: dukecyber/http-go:v1.0-simple
+    environment:
+      - HTTP_PORT=8000
+    ports:
+      - "8000:8000"
+    networks:
+      - popduck
 networks:
   popduck:
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
